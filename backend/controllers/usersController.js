@@ -1,15 +1,19 @@
 
+const loginUser = (req, res) => {
+    res.send('Login')
+ }
 
-const getUsers = (req, res) => {
-   res.send('Get users')
-}
+ const registerUser = (req, res) => {
+    res.send('Register')
+ }
 
-const postUser = (req, res) => {
-    res.send('Post users')
+ const getUsers = (req, res) => {
+    res.send('Get users')
  }
 
 
 module.exports = {
     getUsers,
-    postUser
+    loginUser,
+    registerUser
 }
