@@ -52,9 +52,22 @@ const User = require('../models/userModel')
 
  //login
  const loginUser = async (req, res) => {
-   res.json({
-     message: "Login"
-   })
+   const {email, password} = req.body
+
+   //check if user with email exists
+   const user = await User.findOne({email})
+
+   if(user && (await bcrypt.compare(password, user.password))) {
+      res.status(200).json({
+         _id: user.id,
+         email: user.email,
+         token: genereToken(user.id)
+      })
+   }else {
+      res.status(401).json({
+         message: "Invalid creditials"
+      })
+   }
 }
 
  const getUsers = async (req, res) => {
