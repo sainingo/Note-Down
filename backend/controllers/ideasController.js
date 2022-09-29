@@ -21,11 +21,14 @@ const setIdea = asyncHandler( async (req, res) => {
 })
 
 const updateIdea = asyncHandler( async (req, res) => {
-    res.send('Update idea')
+     const updatedIdea = await Idea.findByIdAndUpdate(req.params.id, req.body, {new: true})
+
+    res.json(updatedIdea)
 })
 
 const deleteIdea = asyncHandler( async (req, res) => {
-    res.send('Delete idea')
+    const deletedIdea = await Idea.findByIdAndDelete(req.params.id)
+    res.json(deletedIdea)
 })
 
 module.exports = {
