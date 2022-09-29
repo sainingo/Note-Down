@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler')
+const bcrypt = require('bcryptjs')
 const User = require('../models/userModel')
 
 //register
@@ -9,7 +10,7 @@ const User = require('../models/userModel')
       res.status(401).json({
          message:"All fields are required"
       })
-      // throw new Error("All fields are required1")
+      //throw new Error("All fields are required1")
    }
 
    // check if user exist b4 register
@@ -20,10 +21,15 @@ const User = require('../models/userModel')
       })
    }
 
+   //hash the password b4 sending to db
+   const salt = await bcrypt.genSalt(10)
+
+   const hashedPassword = await bcrypt.hash(password, salt)
+
    const user = await User.create({
       name,
       email,
-      password
+      password: hashedPassword
    })
 
    //check if user
