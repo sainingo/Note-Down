@@ -39,18 +39,19 @@ const User = require('../models/userModel')
          _id: user.id,
          name: user.name,
          email: user.email,
-         token: genereToken(user.id)
+         token: genereToken(user._id)
       })
    }else {
       res.status(401).json({
          message: "Invalid user data"
       })
+
       // throw new Error('Invalid user')
    }
 
  })
 
- //login
+ //login 
  const loginUser = async (req, res) => {
    const {email, password} = req.body
 
@@ -70,10 +71,14 @@ const User = require('../models/userModel')
    }
 }
 
- const getUsers = async (req, res) => {
-    res.json({
-      message: "Me"
-    })
+ const getMe = async (req, res) => {
+   const {_id, email, name} = await User.findById(req.user.id)
+   res.status(200).json({
+      id: _id,
+      name,
+      email
+   })
+   
  }
 
  // generate a json token
@@ -85,7 +90,7 @@ const User = require('../models/userModel')
 
 
 module.exports = {
-    getUsers,
+    getMe,
     loginUser,
     registerUser
 }
