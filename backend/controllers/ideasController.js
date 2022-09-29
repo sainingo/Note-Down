@@ -32,7 +32,7 @@ const updateIdea = asyncHandler( async (req, res) => {
     }
 
     //check if user logged in matched idea's user
-    const user = User.findById(req.user.id)
+    const user = await User.findById(req.user.id)
 
     if(!user) {
         res.status(400)
@@ -40,9 +40,9 @@ const updateIdea = asyncHandler( async (req, res) => {
     }
 
     //check if user details matches logged in user
-    if(idea.user.id.toString() !== user.id) {
-        res.status(400)
-        throw new Error('User not authorized')
+    if(idea.user.toString() !== user.id) {
+        res.status(400).json({message: "User not authorized"})
+        // throw new Error('User not authorized')
     }
      const updatedIdea = await Idea.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
