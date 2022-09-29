@@ -1,8 +1,9 @@
 const asyncHandler = require('express-async-handler')
 const Idea = require('../models/ideaModel')
+const User = require('../models/userModel')
 
 const getIdeas = asyncHandler(async (req, res) => {
-    const ideas = await Idea.find()
+    const ideas = await Idea.find({user: req.user.id})
     res.json(ideas)
 })
 
@@ -14,21 +15,65 @@ const setIdea = asyncHandler( async (req, res) => {
     }
 
     const idea = await Idea.create({
-        idea: req.body.idea
+        idea: req.body.idea,
+        user: req.user.id,
     })
 
     res.json(idea)
 })
 
 const updateIdea = asyncHandler( async (req, res) => {
+    const idea = await Idea.findById(req.params.id)
+
+    //check if idea is there
+    if(!idea) {
+        res.status(400)
+        throw new Error('No idea found')
+    }
+
+    //check if user logged in matched idea's user
+    const user = User.findById(req.user.id)
+
+    if(!user) {
+        res.status(400)
+        throw new Error("No user found")
+    }
+
+    //check if user details matches logged in user
+    if(idea.user.id.toString() !== user.id) {
+        res.status(400)
+        throw new Error('User not authorized')
+    }
      const updatedIdea = await Idea.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
-    res.json(updatedIdea)
+    res.status(200).json(updatedIdea)
 })
 
 const deleteIdea = asyncHandler( async (req, res) => {
-    const deletedIdea = await Idea.findByIdAndDelete(req.params.id)
-    res.json(deletedIdea)
+    const idea = await Idea.findById(req.params.id)
+
+    //check if idea is there
+    if(!idea) {
+        res.status(400)
+        throw new Error('No idea found')
+    }
+
+    //check if user logged in matched idea's user
+    const user = await User.findById(req.user.id)
+
+    if(!user) {
+        res.status(400).json({message: "No user found"})
+    }
+
+    //check if user details matches logged in user
+    if(idea.user.toString() !== user.id) {
+        res.status(400).json({
+            message: "User not authorized"
+        })
+    }
+
+    await idea.remove()
+    res.status(200).json({id: req.params.id})
 })
 
 module.exports = {
