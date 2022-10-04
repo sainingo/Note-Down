@@ -9,7 +9,7 @@ const Header = () => {
            
         </nav>
         <ul className='flex gap-10 mr-4 text-sm'>
-            <Link to='/login'><li className='border border-pink-200 p-2 hover:bg-pink-300 hover:text-white-900'>LOGIN</li></Link>
+            <Link to='/login'><li className='border border-pink-200 p-2 hover:bg-pink-300 hover:text-white-900'>LOG IN</li></Link>
             <Link to='/register'><li className='bg-pink-400 p-2 hover:border border-sky-400 '>SIGN UP</li></Link>
         </ul>
     </div>
