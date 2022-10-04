@@ -1,9 +1,10 @@
 import React from 'react'
+import Notes from './Notes'
 
 const Home = () => {
   return (
     <div className='text-center m-2 text-white'>
-        <h2 className='text-2xl'>Note down some great ideas</h2>
+        <h2 className='text-2xl m-4'>Note Down some Great Ideas</h2>
         <div className='p-2 w-[60%] mx-auto'>
             <form className='flex gap-6'>
                 <input type='text' 
@@ -13,12 +14,7 @@ const Home = () => {
             </form>
         </div>
         <div className='pt-2'>
-            <div className='bg-slate-400 w-[60%] mx-auto my-4 p-6 rounded'>
-            <p>This is a platform for taking down your ideas</p>
-            </div>
-            <div className='bg-slate-400 w-[60%] mx-auto my-4 p-6 rounded'>
-            <p>This is a platform for taking down your ideas</p>
-            </div>
+            <Notes />
         </div>
     </div>
   )
