@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { register, reset } from '../features/auth/authSlice';
+import { register } from '../features/auth/authSlice';
 
  
 const Register = () => {
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
     email: '',
     password: '',
     password2: ''
   })
 
-  const {username, email, password, password2} = formData;
+  const {name, email, password, password2} = formData;
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -29,9 +29,9 @@ const Register = () => {
       navigate('/')
     }
 
-    dispatch(reset())
+    // dispatch(reset())
 
-  }, [user, isError, isSuccess, message, dispatch, navigate])
+  }, [user, isError, isSuccess, message, navigate])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ const Register = () => {
       toast('Password dont match')
     }else {
       const userData = {
-        username,
+        name,
         email,
         password
       }
@@ -65,7 +65,7 @@ const Register = () => {
       <form onSubmit={handleSubmit}>
         <div className='grid p-2'>
         <label>Username</label>
-        <input type='text' name="username" onChange={handleChange} value={username} required placeholder="Enter your username" className='p-2 rounded-sm mt-1 focus:outline-none focus:border-sky-500 text-black'/>
+        <input type='text' name="name" onChange={handleChange} value={name} required placeholder="Enter your username" className='p-2 rounded-sm mt-1 focus:outline-none focus:border-sky-500 text-black'/>
         </div>
         <div className='grid p-2'>
         <label>Email</label>
