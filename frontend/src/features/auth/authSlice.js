@@ -28,8 +28,14 @@ export const login = createAsyncThunk('auth/login', async () => {
 
 })
 
-export const logout = createAsyncThunk('auth/logout', async () => {
+export const logout = createAsyncThunk('auth/logout', async (_, {rejectWithValue}) => {
+   try {
 
+    return await authService.logout()
+    
+   } catch (error) {
+    return rejectWithValue(error)
+   }
 })
 
 const authSlice = createSlice({

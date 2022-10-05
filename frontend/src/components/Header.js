@@ -1,9 +1,18 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { logout } from '../features/auth/authSlice'
 
 const Header = () => {
   const user  = useSelector((state) => state.auth.user)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    console.log(123)
+    dispatch(logout())
+    navigate('/')
+  }
 
   return (
     <div className='flex justify-between border-b border-slate-600 bg-sky-900 text-white p-4 align-center'>
@@ -20,7 +29,7 @@ const Header = () => {
           ) : (
             <>
        <li className='p-2 underline underline-offset-2 '>Dear: {user.name}</li>
-         <Link to='/logout'><li className='bg-pink-400 p-2 hover:border border-sky-400 '>logout</li></Link>
+         <li onClick={handleLogout} className='bg-pink-400 p-2 hover:border border-sky-400 '>logout</li>
             </>
           )}
         </ul>
