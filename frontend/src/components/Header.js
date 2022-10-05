@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { logout } from '../features/auth/authSlice'
+import { logout, reset } from '../features/auth/authSlice'
 
 const Header = () => {
   const user  = useSelector((state) => state.auth.user)
@@ -11,6 +11,7 @@ const Header = () => {
   const handleLogout = () => {
     console.log(123)
     dispatch(logout())
+    dispatch(reset())
     navigate('/')
   }
 
@@ -28,7 +29,7 @@ const Header = () => {
            </>
           ) : (
             <>
-       <li className='p-2 underline underline-offset-2 '>Dear: {user.name}</li>
+       <li className='p-2 underline underline-offset-2 '>Dear: {user.email}</li>
          <li onClick={handleLogout} className='bg-pink-400 p-2 hover:border border-sky-400 '>logout</li>
             </>
           )}
