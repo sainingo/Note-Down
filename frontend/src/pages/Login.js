@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { login } from '../features/auth/authSlice'
+import { login, reset } from '../features/auth/authSlice'
 
 const Login = () => {
 
@@ -27,9 +27,9 @@ const Login = () => {
       navigate('/')
     }
 
-    // dispatch(reset())
+    dispatch(reset())
 
-  }, [user, isError, isSuccess, message, navigate])
+  }, [user, isError, isSuccess, message, navigate, dispatch])
 
   const handleChange = (e) => {
    setFormData((prev) => ({

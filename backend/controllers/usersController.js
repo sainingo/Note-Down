@@ -61,7 +61,7 @@ const User = require('../models/userModel')
       })
    }else {
       res.status(400)
-      throw new Error('Invalid user data')
+      throw new Error('Invalid creditials')
    }
 }
 
