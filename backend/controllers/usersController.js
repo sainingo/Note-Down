@@ -8,18 +8,15 @@ const User = require('../models/userModel')
    const {name, email, password} = req.body
    // validate data before submitting
    if(!name || !email || !password) {
-      res.status(401).json({
-         message:"All fields are required"
-      })
-      //throw new Error("All fields are required1")
+      res.status(400)
+      throw new Error("All fields are required1")
    }
 
    // check if user exist b4 register
    const userExists = await User.findOne({email})
    if(userExists) {
-      res.status(401).json({
-         message: "User alraedy exist"
-      })
+      res.status(400)
+      throw new Error('User already exists')
    }
 
    //hash the password b4 sending to db
@@ -42,11 +39,9 @@ const User = require('../models/userModel')
          token: genereToken(user._id)
       })
    }else {
-      res.status(401).json({
-         message: "Invalid user data"
-      })
+      res.status(400)
 
-      // throw new Error('Invalid user')
+      throw new Error('Invalid user')
    }
 
  })
@@ -65,9 +60,8 @@ const User = require('../models/userModel')
          token: genereToken(user.id)
       })
    }else {
-      res.status(401).json({
-         message: "Invalid creditials"
-      })
+      res.status(400)
+      throw new Error('Invalid user data')
    }
 }
 
