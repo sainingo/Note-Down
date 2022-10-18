@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { logout, reset } from '../features/auth/authSlice'
 
 const Header = () => {
-  const user  = useSelector((state) => state.auth.user)
+  const {user}  = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
