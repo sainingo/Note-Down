@@ -9,7 +9,6 @@ const Header = () => {
   const navigate = useNavigate()
 
   const handleLogout = () => {
-    console.log(123)
     dispatch(logout())
     dispatch(reset())
     navigate('/')
