@@ -10,7 +10,7 @@ import Register from "./pages/Register"
 
 function App() {
   return (
-    <div className="bg-sky-800 w-full h-screen">
+    <div className="bg-sky-800 w-full h-[100%]">
     <Header />
     <Routes>
         <Route path="/"  element={ <Home />}/>
