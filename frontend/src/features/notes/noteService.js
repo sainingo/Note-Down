@@ -10,10 +10,6 @@ const createIdea = async (idea, token) => {
         }
     }
  const response = await axios.post(API_URL, idea, config)
- if(response.data) {
-    localStorage.setItem('idea', JSON.stringify(response.data))
- }
-
  return response.data
 }
 
@@ -27,10 +23,6 @@ const getIdea = async (token) => {
     }
 
     const response = await axios.get(API_URL, config)
-    if(response.data) {
-        localStorage.setItem('idea', JSON.stringify(response.data))
-    }
-
     return response.data
 
 }
