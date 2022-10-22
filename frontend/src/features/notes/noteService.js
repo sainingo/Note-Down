@@ -14,7 +14,13 @@ const createIdea = async (idea, token) => {
 
 
 //get idea
-const getIdea = async () => {
+const getIdea = async (token) => {
+    const response = await axios.get(token)
+    if(response.data) {
+        localStorage.setItem('idea', JSON.stringify(response.data))
+    }
+
+    return response.data
 
 }
 
