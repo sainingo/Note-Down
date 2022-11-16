@@ -15,7 +15,7 @@ export const createNotes = createAsyncThunk('api/createIdea', async (idea, {reje
     try {
         
     } catch (error) {
-        
+        rejectWithValue(error)
     }
 
 })
